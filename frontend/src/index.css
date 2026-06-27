@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: 248 250 252; /* Beautiful soft slate-50 background for light mode */
+  --color-card: 255 255 255;    /* Pristine white card background for light mode */
+  --color-accent: 2 132 199;    /* High-contrast sky-600 blue for light mode */
+  --color-muted: 71 85 105;     /* Darker slate-600 for better light mode readability */
+  --color-safe: 22 163 74;      /* Green-600 for optimal contrast and friendliness in light mode */
+  --color-nav: 15 23 42;        /* NEW: Dark slate-900 for the navbar in light mode */
+}
+
+.dark {
+  --color-primary: 6 11 20;     /* Deep dark navy background for dark mode */
+  --color-card: 13 27 42;       /* Navy card background for dark mode */
+  --color-accent: 0 212 255;    /* Neon light blue for dark mode */
+  --color-muted: 122 154 181;   /* Original soft blue-gray muted text for dark mode */
+  --color-safe: 0 255 136;      /* Neon green for dark mode */
+  --color-nav: 13 27 42;        /* NEW: Matches your dark mode card background */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    @apply bg-primary;
+  }
+  
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    @apply transition-colors duration-300 bg-primary;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+/* Premium custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #1a2d40;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #00d4ff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d0e0ee;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0077bb;
+}
+
+/* Grid animation effect */
+.grid-bg {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(2, 132, 199, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(2, 132, 199, 0.05) 1px, transparent 1px);
+}
+
+.dark .grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Keyframes for glow animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Infinite Marquee Animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 85s linear infinite;
+}
+
+/* Strike-through line Animation */
+@keyframes strike {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.animate-strike {
+  animation: strike 0.35s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+/* Hide marquee banner when mobile menu drawer is open */
+.mobile-menu-open .marquee-banner-container {
+  display: none !important;
+}
+
+/* Custom premium Toastify overrides */
+.Toastify__toast-container {
+  padding: 8px;
+}
+
+.Toastify__toast {
+  border-radius: 16px !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.025em !important;
+  padding: 14px 18px !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(12px) !important;
+  background: rgba(13, 27, 42, 0.9) !important; /* Matches --color-card dark slate */
+  color: #ffffff !important;
+}
+
+/* Light mode overrides if the body is not dark */
+:root:not(.dark) .Toastify__toast {
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: #0d1b2a !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 10px 30px -10px rgba(71, 85, 105, 0.2) !important;
+}
+
+.Toastify__toast-body {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Close button custom styling */
+.Toastify__close-button {
+  color: #7a9ab5 !important;
+  opacity: 0.6 !important;
+  align-self: center !important;
+}
+.Toastify__close-button:hover {
+  opacity: 1 !important;
+  color: #00d4ff !important;
+}
+
+/* Specific toast status border accent colors */
+.Toastify__toast--success {
+  border-left: 5px solid #00ff88 !important;
+}
+:root:not(.dark) .Toastify__toast--success {
+  border-left: 5px solid #16a34a !important;
+}
+
+.Toastify__toast--error {
+  border-left: 5px solid #ff4a4a !important;
+}
+
+.Toastify__toast--info {
+  border-left: 5px solid #00d4ff !important;
+}
+:root:not(.dark) .Toastify__toast--info {
+  border-left: 5px solid #0284c9 !important;
+}
+
+.Toastify__toast--warning {
+  border-left: 5px solid #ffaa00 !important;
+}
+
+/* Progress bar customization */
+.Toastify__progress-bar {
+  height: 3px !important;
+  border-radius: 0 0 16px 16px !important;
+}
+.Toastify__progress-bar--success {
+  background: linear-gradient(to right, #00ff88, #00d4ff) !important;
+}
+.Toastify__progress-bar--error {
+  background: linear-gradient(to right, #ff4a4a, #ffaa00) !important;
+}
+.Toastify__progress-bar--info {
+  background: linear-gradient(to right, #00d4ff, #0084ff) !important;
+}
+.Toastify__progress-bar--warning {
+  background: linear-gradient(to right, #ffaa00, #ff4a4a) !important;
+}
