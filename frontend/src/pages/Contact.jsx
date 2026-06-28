@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { FiMail, FiGithub, FiLinkedin, FiUser, FiMapPin, FiCheckCircle, FiLock, FiGlobe, FiClock, FiSend } from 'react-icons/fi'
 import { FaGraduationCap } from 'react-icons/fa'
 import { toast } from 'react-toastify'
+import RateUsCard from '../components/RateUsCard'
+
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
@@ -190,6 +192,9 @@ export const Contact = () => {
             </div>
           </section>
 
+          {/* Rate Us ⭐ Section */}
+          <RateUsCard />
+
           {/* Security Notice */}
           <div className="p-4 rounded-2xl border border-muted/15 bg-card/30 backdrop-blur-sm text-left flex items-start space-x-3">
             <FiLock className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
@@ -199,7 +204,6 @@ export const Contact = () => {
           </div>
 
         </div>
-
         {/* Right Column (Let's Collaborate and Contact Form) */}
         <div className="md:col-span-7 space-y-6">
           

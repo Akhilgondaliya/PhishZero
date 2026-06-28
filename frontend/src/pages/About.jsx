@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { FiShield, FiGithub, FiExternalLink, FiAward, FiMail, FiCheck, FiCpu, FiTrendingUp, FiActivity, FiGlobe, FiDatabase, FiLock, FiTerminal, FiLayers } from 'react-icons/fi'
+import RateUsCard from '../components/RateUsCard'
+
 
 // Reusable Animated Counter component
 const StatCard = ({ label, endVal, suffix = '' }) => {
@@ -276,6 +278,9 @@ export const About = () => {
           ))}
         </div>
       </section>
+
+      {/* Rate Us ⭐ Section */}
+      <RateUsCard />
 
       {/* Academic Disclaimer */}
       <div className="p-4 rounded-xl border border-muted/20 dark:border-accent/5 text-center bg-card/40 dark:bg-card/25 backdrop-blur-sm text-xs text-muted font-semibold">

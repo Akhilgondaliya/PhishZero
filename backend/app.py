@@ -608,6 +608,62 @@ def save_contact_message():
         
     return jsonify({"success": True, "message": "Message saved successfully"})
 
+@app.route('/api/rate', methods=['POST'])
+def save_rating():
+    """
+    Saves a rating to a local JSON file: server/ratings.json
+    Input JSON: { "rating": 5, "comment": "..." }
+    """
+    import json
+    from datetime import datetime
+    data = request.json or {}
+    rating = data.get('rating')
+    comment = data.get('comment', '').strip()
+    
+    try:
+        rating_int = int(rating)
+        if rating_int < 1 or rating_int > 5:
+            raise ValueError()
+    except (TypeError, ValueError):
+        return jsonify({"error": "Rating must be an integer between 1 and 5"}), 400
+        
+    new_rating = {
+        "timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        "rating": rating_int,
+        "comment": comment
+    }
+    
+    # Resolve ratings filepath (using /tmp on serverless environments to allow writing)
+    is_serverless = os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME")
+    if is_serverless:
+        ratings_filepath = "/tmp/ratings.json"
+    else:
+        ratings_filepath = os.path.join(os.path.dirname(__file__), 'ratings.json')
+        
+    # Load existing ratings
+    existing_ratings = []
+    if os.path.exists(ratings_filepath):
+        try:
+            with open(ratings_filepath, 'r', encoding='utf-8') as f:
+                existing_ratings = json.load(f)
+                if not isinstance(existing_ratings, list):
+                    existing_ratings = []
+        except Exception:
+            existing_ratings = []
+            
+    # Append the new rating
+    existing_ratings.append(new_rating)
+    
+    # Save back to file
+    try:
+        with open(ratings_filepath, 'w', encoding='utf-8') as f:
+            json.dump(existing_ratings, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        return jsonify({"error": f"Failed to save rating: {str(e)}"}), 500
+        
+    return jsonify({"success": True, "message": "Rating saved successfully"})
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
+
