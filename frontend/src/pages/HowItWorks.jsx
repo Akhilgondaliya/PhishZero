@@ -72,7 +72,7 @@ export const HowItWorks = () => {
       {/* Title */}
       <div className="text-center space-y-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0d1b2a] dark:text-white">
-          🤔 How We Check the Links
+          🤔 How We Check the Links?
         </h1>
         <p className="text-sm text-muted max-w-xl mx-auto">
           A transparent look at the security rules, details, and databases we check to calculate the risk score.
